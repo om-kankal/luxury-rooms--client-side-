@@ -1,0 +1,1158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Luxury Hotel Booking</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* General styles */
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            margin: 0;
+            padding: 0;
+            color: #333;
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        header {
+            background: rgba(26, 26, 26, 0.95);
+            backdrop-filter: blur(10px);
+            color: #fff;
+            padding: 15px 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+            background: linear-gradient(45deg, #ffc107, #ff9800);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hamburger {
+            display: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: #ffc107;
+        }
+
+        .mobile-nav {
+            list-style: none;
+            display: flex;
+            gap: 20px;
+            margin: 0;
+            padding: 0;
+        }
+
+        .mobile-nav button {
+            padding: 12px 20px;
+            background: linear-gradient(45deg, #ffc107, #ff9800);
+            color: #fff;
+            border: none;
+            border-radius: 25px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(255, 193, 7, 0.3);
+        }
+
+        .mobile-nav button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 193, 7, 0.4);
+        }
+
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 140px auto 50px auto;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 40px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        h1 {
+            color: #444;
+            font-size: 3rem;
+            margin-bottom: 20px;
+            text-align: center;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        h2 {
+            color: #444;
+            font-size: 2.2rem;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        p {
+            font-size: 1.2rem;
+            color: #666;
+            text-align: center;
+        }
+
+        .primary-btn, .secondary-btn {
+            padding: 15px 30px;
+            background: linear-gradient(45deg, #ffc107, #ff9800);
+            color: #fff;
+            border: none;
+            border-radius: 25px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            margin: 10px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(255, 193, 7, 0.3);
+        }
+
+        .primary-btn:hover, .secondary-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 193, 7, 0.4);
+        }
+
+        .secondary-btn {
+            background: linear-gradient(45deg, #8bc34a, #4caf50);
+            box-shadow: 0 4px 15px rgba(139, 195, 74, 0.3);
+        }
+
+        .secondary-btn:hover {
+            box-shadow: 0 6px 20px rgba(139, 195, 74, 0.4);
+        }
+
+        .danger-btn {
+            background: linear-gradient(45deg, #f44336, #d32f2f);
+            box-shadow: 0 4px 15px rgba(244, 67, 54, 0.3);
+        }
+
+        .danger-btn:hover {
+            box-shadow: 0 6px 20px rgba(244, 67, 54, 0.4);
+        }
+
+        .success-btn {
+            background: linear-gradient(45deg, #4caf50, #388e3c);
+            box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
+        }
+
+        .success-btn:hover {
+            box-shadow: 0 6px 20px rgba(76, 175, 80, 0.4);
+        }
+
+        /* Form styles */
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        label {
+            font-weight: 600;
+            color: #444;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="tel"],
+        input[type="number"],
+        input[type="password"],
+        select {
+            padding: 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            background: rgba(255, 255, 255, 0.8);
+        }
+
+        input:focus, select:focus {
+            outline: none;
+            border-color: #ffc107;
+            box-shadow: 0 0 10px rgba(255, 193, 7, 0.2);
+        }
+
+        input[readonly] {
+            background-color: #f5f5f5;
+            color: #666;
+        }
+
+        /* Loader */
+        .loader {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #ffc107;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+            margin: 20px auto;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Room styles */
+        .room-info {
+            display: grid;
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        .room {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .room h3 {
+            color: #444;
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .image-container {
+            display: flex;
+            overflow-x: auto;
+            gap: 15px;
+            padding: 15px 0;
+            scroll-behavior: smooth;
+        }
+
+        .room-image {
+            min-width: 200px;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            opacity: 0.7;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .room-image:hover, .room-image.active {
+            transform: scale(1.05);
+            opacity: 1;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Admin table styles */
+        .admin-container {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .bookings-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .bookings-table th,
+        .bookings-table td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .bookings-table th {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            font-weight: 600;
+        }
+
+        .bookings-table tr:hover {
+            background-color: rgba(255, 193, 7, 0.1);
+        }
+
+        .status {
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-align: center;
+        }
+
+        .status.pending {
+            background: rgba(255, 193, 7, 0.2);
+            color: #f57c00;
+        }
+
+        .status.accepted {
+            background: rgba(76, 175, 80, 0.2);
+            color: #4caf50;
+        }
+
+        .status.rejected {
+            background: rgba(244, 67, 54, 0.2);
+            color: #f44336;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+        }
+
+        .action-buttons button {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 15px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        /* Room availability */
+        .room-availability {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .availability-card {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        .availability-card.available {
+            border-color: #4caf50;
+        }
+
+        .availability-card.full {
+            border-color: #f44336;
+            background: rgba(244, 67, 54, 0.1);
+        }
+
+        .availability-number {
+            font-size: 2rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .available .availability-number {
+            color: #4caf50;
+        }
+
+        .full .availability-number {
+            color: #f44336;
+        }
+
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .hamburger {
+                display: block;
+            }
+
+            .mobile-nav {
+                display: none;
+                position: absolute;
+                top: 100%;
+                right: 20px;
+                background: rgba(26, 26, 26, 0.95);
+                backdrop-filter: blur(10px);
+                flex-direction: column;
+                padding: 20px;
+                border-radius: 10px;
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            }
+
+            .mobile-nav.active {
+                display: flex;
+            }
+
+            .container {
+                margin: 120px 20px 50px 20px;
+                padding: 20px;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            .bookings-table {
+                font-size: 0.9rem;
+            }
+
+            .bookings-table th,
+            .bookings-table td {
+                padding: 10px 8px;
+            }
+
+            .action-buttons {
+                flex-direction: column;
+            }
+        }
+
+        /* Hidden sections */
+        .hidden {
+            display: none;
+        }
+
+        /* Success/Error messages */
+        .message {
+            padding: 15px;
+            border-radius: 10px;
+            margin: 20px 0;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        .message.success {
+            background: rgba(76, 175, 80, 0.1);
+            color: #4caf50;
+            border: 1px solid #4caf50;
+        }
+
+        .message.error {
+            background: rgba(244, 67, 54, 0.1);
+            color: #f44336;
+            border: 1px solid #f44336;
+        }
+
+        .message.warning {
+            background: rgba(255, 193, 7, 0.1);
+            color: #f57c00;
+            border: 1px solid #ffc107;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">Luxury Hotel</div>
+            <i class="fas fa-bars hamburger" onclick="toggleMobileNav()"></i>
+            <ul class="mobile-nav" id="mobileNav">
+                <li><button type="button" onclick="showRooms()">Rooms</button></li>
+                <li><button type="button" onclick="showBooking()">Book Room</button></li>
+                <li><button type="button" onclick="showAbout()">About Us</button></li>
+                <li><button type="button" onclick="showContact()">Contact</button></li>
+                <li><button type="button" onclick="showAdminLogin()">Admin</button></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="container">
+        <!-- Welcome Section -->
+        <section id="welcomeSection">
+            <h1>Welcome to Luxury Hotel</h1>
+            <p>Your comfort, our priority. Choose your perfect room and book your stay with us!</p>
+            <button type="button" class="primary-btn" onclick="showRooms()">Explore Rooms</button>
+        </section>
+
+        <!-- Info Section -->
+        <section id="infoSection" class="hidden"></section>
+
+        <!-- Booking Section -->
+        <section id="bookingSection" class="hidden">
+            <h2>Book Your Stay</h2>
+            <div id="availabilityDisplay" class="room-availability"></div>
+            <form id="bookingForm">
+                <div class="form-group">
+                    <label for="name">Full Name</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="phone">Phone Number</label>
+                    <input type="tel" id="phone" name="phone" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="roomType">Room Type</label>
+                    <select id="roomType" name="roomType" required>
+                        <option value="">Select Room Type</option>
+                        <option value="low">Low Class Room - $100/night</option>
+                        <option value="normal">Normal Room - $150/night</option>
+                        <option value="business">Business Class Room - $200/night</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="nights">Number of Nights</label>
+                    <input type="number" id="nights" name="nights" min="1" max="30" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="checkIn">Check-in Date</label>
+                    <input type="date" id="checkIn" name="checkIn" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="checkOut">Check-out Date</label>
+                    <input type="date" id="checkOut" name="checkOut" required readonly>
+                </div>
+
+                <button type="button" class="secondary-btn" onclick="checkAvailability()">Check Availability</button>
+                <input type="text" id="availability" readonly placeholder="Availability status will appear here">
+
+                <button type="button" class="primary-btn" id="bookNowBtn" onclick="bookNow()" disabled>Book Now</button>
+            </form>
+        </section>
+
+        <!-- Admin Login Section -->
+        <section id="adminLoginSection" class="hidden">
+            <h2>Admin Login</h2>
+            <form id="adminLoginForm">
+                <div class="form-group">
+                    <label for="adminUsername">Username</label>
+                    <input type="text" id="adminUsername" name="adminUsername" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="adminPassword">Password</label>
+                    <input type="password" id="adminPassword" name="adminPassword" required>
+                </div>
+
+                <button type="button" class="primary-btn" onclick="adminLogin()">Login</button>
+            </form>
+        </section>
+
+        <!-- Admin Dashboard Section -->
+        <section id="adminDashboard" class="hidden">
+            <div class="admin-container">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px;">
+                    <h2>Admin Dashboard</h2>
+                    <button type="button" class="danger-btn" onclick="adminLogout()">Logout</button>
+                </div>
+                
+                <div class="room-availability">
+                    <div class="availability-card" id="lowClassAvailability">
+                        <h3>Low Class Rooms</h3>
+                        <div class="availability-number" id="lowClassCount">10</div>
+                        <p>Available</p>
+                    </div>
+                    <div class="availability-card" id="normalClassAvailability">
+                        <h3>Normal Rooms</h3>
+                        <div class="availability-number" id="normalClassCount">10</div>
+                        <p>Available</p>
+                    </div>
+                    <div class="availability-card" id="businessClassAvailability">
+                        <h3>Business Class Rooms</h3>
+                        <div class="availability-number" id="businessClassCount">10</div>
+                        <p>Available</p>
+                    </div>
+                </div>
+
+                <h3>Recent Bookings</h3>
+                <table class="bookings-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Phone</th>
+                            <th>Room Type</th>
+                            <th>Nights</th>
+                            <th>Check-in</th>
+                            <th>Total Cost</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="bookingsTableBody">
+                        <!-- Bookings will be populated here -->
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Status Section -->
+        <section id="statusSection" class="hidden">
+            <div class="loader" id="loader"></div>
+            <p id="statusMessage"></p>
+        </section>
+    </main>
+
+    <script>
+        // Global variables
+        let currentSection = 'welcomeSection';
+        let bookings = JSON.parse(sessionStorage.getItem('bookings')) || [];
+        let roomAvailability = JSON.parse(sessionStorage.getItem('roomAvailability')) || {
+            low: 10,
+            normal: 10,
+            business: 10
+        };
+
+        // Admin credentials (in real app, this would be handled securely on server)
+        const adminCredentials = {
+            username: 'admin',
+            password: 'admin123'
+        };
+
+        let isAdminLoggedIn = false;
+
+        // Initialize the application
+        document.addEventListener('DOMContentLoaded', function() {
+            updateRoomAvailabilityDisplay();
+            initializeDateFields();
+        });
+
+        // Navigation functions
+        function toggleMobileNav() {
+            const nav = document.getElementById('mobileNav');
+            nav.classList.toggle('active');
+        }
+
+        function showSection(sectionId, content = null) {
+            // Hide all sections
+            document.querySelectorAll('section').forEach(section => {
+                section.classList.add('hidden');
+            });
+            
+            // Show target section
+            const section = document.getElementById(sectionId);
+            if (content) {
+                section.innerHTML = content;
+            }
+            section.classList.remove('hidden');
+            currentSection = sectionId;
+        }
+
+        function showRooms() {
+            const roomContent = `
+                <h2>Rooms and Pricing</h2>
+                <p>Explore our luxurious rooms and affordable pricing plans. Choose the perfect stay for you!</p>
+                <div class="room-info">
+                    <div class="room">
+                        <h3>Low Class Room - $100/night</h3>
+                        <p>Comfortable accommodation with basic amenities</p>
+                        <div class="image-container">
+                            ${generateRoomImages('C:/images/low-room6.jpg', 'Low Class Room', 1)}
+                            ${generateRoomImages('C:/images/low-room1.jpg', 'Low Class Room', 1)}
+                            ${generateRoomImages('C:/images/low-room2.jpg', 'Low Class Room', 1)}
+                            ${generateRoomImages('C:/images/low-room3.jpg', 'Low Class Room', 1)}
+                        </div>
+                        <p><strong>Amenities:</strong> Wi-Fi, TV, Private Bathroom</p>
+                    </div>
+                    <div class="room">
+                        <h3>Normal Room - $150/night</h3>
+                        <p>Well-appointed rooms with modern amenities</p>
+                        <div class="image-container">
+                            ${generateRoomImages('C:/images/normal-room6.jpg', 'Low Class Room', 1)}
+                            ${generateRoomImages('C:/images/normal-room1.jpg', 'Low Class Room', 1)}
+                            ${generateRoomImages('C:/images/normal-room2.jpg', 'Low Class Room', 1)}
+                            ${generateRoomImages('C:/images/normal-room3.jpg', 'Low Class Room', 1)}
+                            
+                        </div>
+                        <p><strong>Amenities:</strong> Wi-Fi, TV, Mini Bar, Room Service, Private Bathroom</p>
+                    </div>
+                    <div class="room">
+                        <h3>Business Class Room - $200/night</h3>
+                        <p>Premium accommodation with luxury amenities</p>
+                        <div class="image-container">
+                            ${generateRoomImages('C:/images/business-room4.jpg', 'Low Class Room', 1)}
+                            ${generateRoomImages('C:/images/business-room1.jpg', 'Low Class Room', 1)}
+                            ${generateRoomImages('C:/images/business-room5.jpg', 'Low Class Room', 1)}
+                            ${generateRoomImages('C:/images/business-room3.jpg', 'Low Class Room', 1)}
+                            ${generateRoomImages('C:/images/business-room2.jpg', 'Low Class Room', 1)}
+                        </div>
+                        <p><strong>Amenities:</strong> Wi-Fi, TV, Mini Bar, Room Service, Spa Access, Business Center</p>
+                    </div>
+                </div>
+            `;
+            showSection('infoSection', roomContent);
+            initializeImageListeners();
+        }
+
+        function generateRoomImages(baseUrl, alt, count) {
+            let images = '';
+            for (let i = 1; i <= count; i++) {
+                images += `<img src="${baseUrl}?w=200&h=150&fit=crop&auto=format&q=80&v=${i}" alt="${alt} ${i}" class="room-image" onclick="setActiveImage(this)">`;
+            }
+            return images;
+        }
+
+        function setActiveImage(img) {
+            // Remove active class from all images in the same container
+            const container = img.parentElement;
+            container.querySelectorAll('.room-image').forEach(image => {
+                image.classList.remove('active');
+            });
+            // Add active class to clicked image
+            img.classList.add('active');
+        }
+
+        function initializeImageListeners() {
+            document.querySelectorAll('.image-container').forEach(container => {
+                const images = container.querySelectorAll('.room-image');
+                if (images.length > 0) {
+                    images[0].classList.add('active');
+                }
+            });
+        }
+
+        function showBooking() {
+            showSection('bookingSection');
+            updateRoomAvailabilityDisplay();
+        }
+
+        function showAbout() {
+            const aboutContent = `
+                <h2>About Us</h2>
+                <div style="text-align: left; max-width: 800px; margin: 0 auto;">
+                    <p>Welcome to the Grand Oak Hotel, where timeless elegance meets modern comfort. Nestled in the heart of downtown, our luxurious accommodations provide a serene escape from the bustling city. With our world-class amenities, gourmet dining options, and dedicated staff, we strive to create unforgettable experiences for every guest.</p>
+                    
+                    <p>Whether you're here for business or leisure, our commitment to exceptional service ensures your stay will be nothing short of extraordinary. Our hotel features state-of-the-art facilities, including a fitness center, spa, business center, and multiple dining options to cater to all your needs.</p>
+                    
+                    <p>Discover the Green Haven Hotel, where sustainability meets comfort. Our eco-friendly accommodations are designed to minimize our environmental impact while maximizing your relaxation. From solar-powered amenities to organic dining options, we are committed to promoting a greener future.</p>
+                    
+                    <p>Enjoy the beauty of nature with our guided eco-tours and learn about local conservation efforts. At Green Haven, you can indulge in luxury without compromising your values.</p>
+                </div>
+            `;
+            showSection('infoSection', aboutContent);
+        }
+
+        function showContact() {
+            const contactContent = `
+                <h2>Contact Us</h2>
+                <div style="text-align: center; max-width: 600px; margin: 0 auto;">
+                    <div style="background: rgba(255, 255, 255, 0.9); padding: 30px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);">
+                        <p style="font-size: 1.3rem; margin-bottom: 20px;"><i class="fas fa-envelope" style="color: #ffc107; margin-right: 10px;"></i><strong>Email:</strong> contact@luxuryhotel.com</p>
+                        <p style="font-size: 1.3rem; margin-bottom: 20px;"><i class="fas fa-phone" style="color: #ffc107; margin-right: 10px;"></i><strong>Phone:</strong> +91-980-555-1234</p>
+                        <p style="font-size: 1.3rem; margin-bottom: 20px;"><i class="fas fa-map-marker-alt" style="color: #ffc107; margin-right: 10px;"></i><strong>Address:</strong> 123 Luxury Street, Downtown, City 12345</p>
+                        <p style="font-size: 1.1rem; color: #666;">We're here to help you 24/7. Feel free to reach out to us for any inquiries or assistance!</p>
+                    </div>
+                </div>
+            `;
+            showSection('infoSection', contactContent);
+        }
+
+        function showAdminLogin() {
+            showSection('adminLoginSection');
+        }
+
+        // Date field initialization
+        function initializeDateFields() {
+            const checkInField = document.getElementById('checkIn');
+            const checkOutField = document.getElementById('checkOut');
+            const nightsField = document.getElementById('nights');
+
+            // Set minimum date to today
+            const today = new Date().toISOString().split('T')[0];
+            checkInField.min = today;
+            checkInField.value = today;
+
+            // Update checkout date when checkin or nights change
+            function updateCheckOutDate() {
+                const checkIn = new Date(checkInField.value);
+                const nights = parseInt(nightsField.value) || 1;
+                const checkOut = new Date(checkIn);
+                checkOut.setDate(checkOut.getDate() + nights);
+                checkOutField.value = checkOut.toISOString().split('T')[0];
+            }
+
+            checkInField.addEventListener('change', updateCheckOutDate);
+            nightsField.addEventListener('input', updateCheckOutDate);
+
+            // Initialize with default values
+            nightsField.value = 1;
+            updateCheckOutDate();
+        }
+
+        // Room availability functions
+        function updateRoomAvailabilityDisplay() {
+            const availabilityDisplay = document.getElementById('availabilityDisplay');
+            if (availabilityDisplay) {
+                availabilityDisplay.innerHTML = `
+                    <div class="availability-card ${roomAvailability.low > 0 ? 'available' : 'full'}">
+                        <h3>Low Class Rooms</h3>
+                        <div class="availability-number">${roomAvailability.low}</div>
+                        <p>${roomAvailability.low > 0 ? 'Available' : 'Full'}</p>
+                    </div>
+                    <div class="availability-card ${roomAvailability.normal > 0 ? 'available' : 'full'}">
+                        <h3>Normal Rooms</h3>
+                        <div class="availability-number">${roomAvailability.normal}</div>
+                        <p>${roomAvailability.normal > 0 ? 'Available' : 'Full'}</p>
+                    </div>
+                    <div class="availability-card ${roomAvailability.business > 0 ? 'available' : 'full'}">
+                        <h3>Business Class Rooms</h3>
+                        <div class="availability-number">${roomAvailability.business}</div>
+                        <p>${roomAvailability.business > 0 ? 'Available' : 'Full'}</p>
+                    </div>
+                `;
+            }
+
+            // Update admin dashboard if visible
+            updateAdminRoomCounts();
+        }
+
+        function updateAdminRoomCounts() {
+            const lowCount = document.getElementById('lowClassCount');
+            const normalCount = document.getElementById('normalClassCount');
+            const businessCount = document.getElementById('businessClassCount');
+
+            if (lowCount) {
+                lowCount.textContent = roomAvailability.low;
+                const lowCard = document.getElementById('lowClassAvailability');
+                lowCard.className = `availability-card ${roomAvailability.low > 0 ? 'available' : 'full'}`;
+            }
+
+            if (normalCount) {
+                normalCount.textContent = roomAvailability.normal;
+                const normalCard = document.getElementById('normalClassAvailability');
+                normalCard.className = `availability-card ${roomAvailability.normal > 0 ? 'available' : 'full'}`;
+            }
+
+            if (businessCount) {
+                businessCount.textContent = roomAvailability.business;
+                const businessCard = document.getElementById('businessClassAvailability');
+                businessCard.className = `availability-card ${roomAvailability.business > 0 ? 'available' : 'full'}`;
+            }
+        }
+
+        // Booking functions
+        function checkAvailability() {
+            const roomType = document.getElementById('roomType').value;
+            const availabilityField = document.getElementById('availability');
+            const bookNowBtn = document.getElementById('bookNowBtn');
+
+            if (!roomType) {
+                showMessage('Please select a room type first.', 'warning');
+                return;
+            }
+
+            showLoading('Checking availability...');
+
+            setTimeout(() => {
+                hideLoading();
+                
+                if (roomAvailability[roomType] > 0) {
+                    availabilityField.value = `✓ Rooms available! ${roomAvailability[roomType]} rooms left`;
+                    availabilityField.style.color = '#4caf50';
+                    bookNowBtn.disabled = false;
+                    showMessage('Rooms are available for your selected dates!', 'success');
+                } else {
+                    availabilityField.value = '✗ Sorry, no rooms available for this category';
+                    availabilityField.style.color = '#f44336';
+                    bookNowBtn.disabled = true;
+                    showMessage('Sorry, all rooms in this category are currently full.', 'error');
+                }
+            }, 1500);
+        }
+
+        function bookNow() {
+            const form = document.getElementById('bookingForm');
+            const formData = new FormData(form);
+            
+            // Validate form
+            if (!form.checkValidity()) {
+                form.reportValidity();
+                return;
+            }
+
+            const roomType = formData.get('roomType');
+            
+            // Check availability again
+            if (roomAvailability[roomType] <= 0) {
+                showMessage('Sorry, no rooms available for this category.', 'error');
+                return;
+            }
+
+            // Create booking object
+            const booking = {
+                id: Date.now(),
+                name: formData.get('name'),
+                email: formData.get('email'),
+                phone: formData.get('phone'),
+                roomType: roomType,
+                nights: parseInt(formData.get('nights')),
+                checkIn: formData.get('checkIn'),
+                checkOut: formData.get('checkOut'),
+                totalCost: calculateCost(roomType, parseInt(formData.get('nights'))),
+                status: 'pending',
+                timestamp: new Date().toISOString()
+            };
+
+            showLoading('Processing your booking...');
+
+            setTimeout(() => {
+                hideLoading();
+                
+                // Add booking to storage
+                bookings.push(booking);
+                sessionStorage.setItem('bookings', JSON.stringify(bookings));
+                
+                // Generate booking confirmation
+                generateBookingConfirmation(booking);
+                
+                // Reset form
+                form.reset();
+                document.getElementById('availability').value = '';
+                document.getElementById('bookNowBtn').disabled = true;
+                initializeDateFields();
+                
+                showMessage('Booking submitted successfully! Please wait for admin confirmation.', 'success');
+                
+                setTimeout(() => {
+                    showSection('welcomeSection');
+                }, 2000);
+            }, 2000);
+        }
+
+        function calculateCost(roomType, nights) {
+            const prices = { 
+                low: 100, 
+                normal: 150, 
+                business: 200 
+            };
+            return prices[roomType] * nights;
+        }
+
+        function generateBookingConfirmation(booking) {
+            const roomTypeNames = {
+                low: 'Low Class Room',
+                normal: 'Normal Room',
+                business: 'Business Class Room'
+            };
+
+            const confirmationText = `
+LUXURY HOTEL - BOOKING CONFIRMATION
+=====================================
+
+Booking ID: ${booking.id}
+Date: ${new Date(booking.timestamp).toLocaleString()}
+
+GUEST INFORMATION:
+------------------
+Name: ${booking.name}
+Email: ${booking.email}
+Phone: ${booking.phone}
+
+BOOKING DETAILS:
+----------------
+Room Type: ${roomTypeNames[booking.roomType]}
+Check-in: ${booking.checkIn}
+Check-out: ${booking.checkOut}
+Number of Nights: ${booking.nights}
+Total Cost: ${booking.totalCost}
+
+Status: PENDING CONFIRMATION
+
+Thank you for choosing Luxury Hotel!
+Your booking is pending admin approval.
+You will receive a confirmation email once approved.
+
+Contact us: +91-980-555-1234
+Email: contact@luxuryhotel.com
+            `;
+
+            // Download confirmation
+            const blob = new Blob([confirmationText], { type: 'text/plain' });
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(blob);
+            link.download = `booking_confirmation_${booking.id}.txt`;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+
+        // Admin functions
+        function adminLogin() {
+            const username = document.getElementById('adminUsername').value;
+            const password = document.getElementById('adminPassword').value;
+
+            if (username === adminCredentials.username && password === adminCredentials.password) {
+                isAdminLoggedIn = true;
+                showAdminDashboard();
+                showMessage('Login successful!', 'success');
+            } else {
+                showMessage('Invalid credentials. Please try again.', 'error');
+            }
+        }
+
+        function showAdminDashboard() {
+            showSection('adminDashboard');
+            updateAdminRoomCounts();
+            loadBookingsTable();
+        }
+
+        function adminLogout() {
+            isAdminLoggedIn = false;
+            document.getElementById('adminUsername').value = '';
+            document.getElementById('adminPassword').value = '';
+            showSection('welcomeSection');
+            showMessage('Logged out successfully.', 'success');
+        }
+
+        function loadBookingsTable() {
+            const tbody = document.getElementById('bookingsTableBody');
+            tbody.innerHTML = '';
+
+            if (bookings.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="10" style="text-align: center; padding: 20px;">No bookings found</td></tr>';
+                return;
+            }
+
+            const roomTypeNames = {
+                low: 'Low Class',
+                normal: 'Normal',
+                business: 'Business Class'
+            };
+
+            bookings.forEach(booking => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${booking.id}</td>
+                    <td>${booking.name}</td>
+                    <td>${booking.email}</td>
+                    <td>${booking.phone}</td>
+                    <td>${roomTypeNames[booking.roomType]}</td>
+                    <td>${booking.nights}</td>
+                    <td>${booking.checkIn}</td>
+                    <td>${booking.totalCost}</td>
+                    <td><span class="status ${booking.status}">${booking.status.toUpperCase()}</span></td>
+                    <td>
+                        <div class="action-buttons">
+                            ${booking.status === 'pending' ? `
+                                <button class="success-btn" onclick="acceptBooking(${booking.id})">Accept</button>
+                                <button class="danger-btn" onclick="rejectBooking(${booking.id})">Reject</button>
+                            ` : `
+                                <span style="color: #666;">No actions available</span>
+                            `}
+                        </div>
+                    </td>
+                `;
+                tbody.appendChild(row);
+            });
+        }
+
+        function acceptBooking(bookingId) {
+            const booking = bookings.find(b => b.id === bookingId);
+            if (!booking) return;
+
+            if (roomAvailability[booking.roomType] <= 0) {
+                showMessage('Cannot accept booking - no rooms available in this category.', 'error');
+                return;
+            }
+
+            booking.status = 'accepted';
+            roomAvailability[booking.roomType]--;
+            
+            // Save changes
+            sessionStorage.setItem('bookings', JSON.stringify(bookings));
+            sessionStorage.setItem('roomAvailability', JSON.stringify(roomAvailability));
+            
+            // Refresh displays
+            loadBookingsTable();
+            updateRoomAvailabilityDisplay();
+            
+            showMessage(`Booking ${bookingId} has been accepted.`, 'success');
+        }
+
+        function rejectBooking(bookingId) {
+            const booking = bookings.find(b => b.id === bookingId);
+            if (!booking) return;
+
+            booking.status = 'rejected';
+            
+            // Save changes
+            sessionStorage.setItem('bookings', JSON.stringify(bookings));
+            
+            // Refresh table
+            loadBookingsTable();
+            
+            showMessage(`Booking ${bookingId} has been rejected.`, 'success');
+        }
+
+        // Utility functions
+        function showLoading(message = 'Loading...') {
+            showSection('statusSection');
+            document.getElementById('loader').style.display = 'block';
+            document.getElementById('statusMessage').textContent = message;
+        }
+
+        function hideLoading() {
+            document.getElementById('loader').style.display = 'none';
+            document.getElementById('statusMessage').textContent = '';
+        }
+
+        function showMessage(message, type = 'info') {
+            // Remove existing messages
+            const existingMessages = document.querySelectorAll('.message');
+            existingMessages.forEach(msg => msg.remove());
+
+            // Create new message
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${type}`;
+            messageDiv.textContent = message;
+
+            // Add to current section
+            const currentSectionElement = document.getElementById(currentSection);
+            currentSectionElement.insertBefore(messageDiv, currentSectionElement.firstChild);
+
+            // Auto remove after 5 seconds
+            setTimeout(() => {
+                messageDiv.remove();
+            }, 5000);
+        }
+
+        // Initialize room availability display on page load
+        window.addEventListener('load', function() {
+            updateRoomAvailabilityDisplay();
+        });
+
+        // Save room availability to sessionStorage
+        function saveRoomAvailability() {
+            sessionStorage.setItem('roomAvailability', JSON.stringify(roomAvailability));
+        }
+
+        // Auto-save functionality
+        setInterval(() => {
+            saveRoomAvailability();
+        }, 30000); // Save every 30 seconds
+    </script>
+</body>
+</html>
